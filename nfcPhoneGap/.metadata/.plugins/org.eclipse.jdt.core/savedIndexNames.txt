@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/home/nicko2/Documents/RICM4/Projet/projetRICM4/nfcPhoneGap/.metadata/.plugins/org.eclipse.jdt.core
+3949413570.index
+765453901.index
