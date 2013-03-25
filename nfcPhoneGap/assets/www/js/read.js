@@ -23,13 +23,13 @@ function parseTag(nfcEvent) {
 	var records = tag.ndefMessage;
 	var display = document.getElementById("tagContents");
 	// Display Record Info
-	for (var i = 0; i < records.length; i++) {
-		var record = records[i], p = document.createElement('p');
-		p.innerHTML = nfc.bytesToString(record.payload);
-		var typeDeVin = p.getElementsByTagName("typeDeVin"), annee = p.getElementsByTagName("annee"), domaine = p.getElementsByTagName("domaine");
-		p.innerHTML = "Type de vin : " + typeDeVin[0].innerHTML + "<br> annee :" + annee[0].innerHTML + "<br> domaine : " + domaine[0].innerHTML;
-		display.appendChild(p);
-	}
+	var p = document.createElement('p');
+	var text = nfc.bytesToString(records[0].payload);
+	//suppression des 3 premiers caractères (caractèreInconnu+e+n)
+	text = text.substring(3,text.length);
+	var vin = jQuery.parseJSON(text);
+	p.innerHTML = "Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine;
+	display.appendChild(p);
 	navigator.notification.vibrate(100);
 };
 
