@@ -18,9 +18,14 @@
       <div data-theme="a" data-role="header">
 	<h3>Identify a bottle</h3>
       </div>
-      <div data-role="content">
+      <div data-role="content" id="tagContents">
 	<h1 style="position:absolute; top:50%;"><center>Please approch a nfc tag near your device</center></h1>
       </div>
+      <script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+	read();
+	});
+      </script>
     </div>
   </body>
 </html>
