@@ -12,7 +12,6 @@ function yourCallbackFunction(){
 function writeTag(nfcEvent) {
 	var typeDeVin = $("#typeDeVin").val(), annee= $("#annee").val(), domaine = $("#domaine").val();
 	var textVin = JSON.stringify ({"typeDeVin": typeDeVin ,"annee":annee,"domaine":domaine});
-
 	var ndefRecord = ndef.textRecord(textVin);
 	var ndefMessage = ndef.encodeMessage([ndefRecord]);
 	nfc.write([ndefRecord], function() {
