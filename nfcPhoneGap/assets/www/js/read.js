@@ -6,10 +6,6 @@ function clearScreen() {
 	document.getElementById("tagContents").innerHTML = "";
 };
 
-function showInstructions(p) {
-	document.getElementById("tagContents").innerHTML = " scan a tag";
-};
-
 function template(record) {
 	var recordType = nfc.bytesToString(record.type), payload;
 	// attempt display as a string
@@ -43,5 +39,4 @@ var readyRead = function() {
 	}, function() {
 		console.log("Fail.");
 	});
-	showInstructions();
 };
