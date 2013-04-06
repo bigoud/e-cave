@@ -32,6 +32,6 @@ function readyWrite() {
 	function fail() {
 		conole.log('Failed to register NFC Listener');
 	}	
-	nfc.addNdefListener(writeTag, alert(""), fail);
+	nfc.addNdefListener(writeTag, win, fail);
 
 };
