@@ -5,7 +5,7 @@ function write() {
 
 function yourCallbackFunction(){
 	nfc.removeNdefListener(writeTag,console.log("back"),false);
-	$.mobile.changePage("index.html");
+	$.mobile.changePage("mainPage.html");
 }
 
 function writeTag(nfcEvent) {
@@ -32,6 +32,6 @@ function readyWrite() {
 	function fail() {
 		conole.log('Failed to register NFC Listener');
 	}	
-	nfc.addNdefListener(writeTag, win, fail);
+	nfc.addNdefListener(writeTag, alert(""), fail);
 
 };

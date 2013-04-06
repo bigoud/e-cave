@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
   <head> 
-    <title>MainPage</title> 
+    <title>Add</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1"/> 
     <meta charset='utf-8'>
     <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
@@ -30,18 +30,37 @@
           inventory
         </a>
         <div data-role="fieldcontain">
-          <label for="text-14">Field1:</label>
-          <input type="text" data-mini="true" name="text-14" id="text-14" value="">
+          <label for="typeDeVin">Wine type:</label>
+	  <select name="" id ="typeDeVin">
+            <option value="red">
+              Red
+            </option>
+            <option value="rosy">
+              Rosy
+            </option>
+            <option value="white">
+              White
+            </option>
+          </select>
 	</div>
 	<div data-role="fieldcontain">
-          <label for="text-14">Field2:</label>
-          <input type="text" data-mini="true" name="text-14" id="text-14" value="">
+          <fieldset data-role="controlgroup">
+            <label for="annee">Year:</label>
+            <input type="text" data-mini="true" name="annee" id="annee" value="">
+	  </fieldset>
 	</div>
 	<div data-role="fieldcontain">
-          <label for="text-14">Field3:</label>
-          <input type="text" data-mini="true" name="text-14" id="text-14" value="">
+          <fieldset data-role="controlgroup">
+            <label for="domaine">Domain:</label>
+            <input type="text" data-mini="true" name="domaine" id="domaine" value="">
+	  </fieldset>
 	</div>
       </div>
+      <script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+	write();
+	});
+      </script>
     </div>
   </body>
 </html>
