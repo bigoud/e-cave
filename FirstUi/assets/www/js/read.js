@@ -70,3 +70,15 @@ function setFields(){
     $("input[name='domaine']").val(domaine);
 
 }
+
+function preFillDataBase(){
+    href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+    $.get(href, function(Inventory) {
+	InventoryTab = jQuery.makeArray(Inventory);
+	var listeBottle = "";
+	for (i =0 ; i<InventoryTab.length;i++){
+	    listeBottle += "<div id=bottle"+i+">Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+"</div>"; 
+	}
+	document.getElementById("listeBottle").innerHTML = listeBottle;
+    }
+}
