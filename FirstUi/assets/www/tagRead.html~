@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>TagRead</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+    <meta charset='utf-8'>
+  </head>
+
+  <body>
+    <div data-role="page" id="tagRead">
+      <div data-theme="a" data-role="header">
+	<h3>This is your bottle</h3>
+      </div>
+      <div data-role='content' id='writeRemove'>
+	<a data-role='button' data-inline='true' id='writeTag' href='add.html'>to write a new tag</a>
+	<a data-role='button' data-inline='true' id='removeBottle' href='add.html'>to remove the bottle</a>
+      </div>
+    </div>
+  </body>
+</html>
