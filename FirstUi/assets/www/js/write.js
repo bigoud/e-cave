@@ -1,6 +1,6 @@
 function write() {
 	document.addEventListener("deviceready", readyWrite, false);
-//	document.addEventListener("backbutton", yourCallbackFunction, false);
+	document.addEventListener("backbutton", yourCallbackFunction, false);
 };
 
 function yourCallbackFunction(){
