@@ -1,14 +1,23 @@
 var InventoryTab;
 
 function fillPage(){
-	requestTemp();
+	//requestTemp();
 	requestHumidity();
 	requestGet();
 }
 
-function requestTemp(){
-	
-}
+/*function requestTemp(){
+	alert();
+	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/tempDatabase?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+	$.get(href, function(Temp) {
+			TempTab = jQuery.makeArray(Temp);
+			 document.getElementById("temp").innerHTML = TempTab[TempTab.length-1].temp; 
+			 alert();
+			 alert(TempTab[TempTab.length-1].temp);
+		},
+		"json")
+		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
+}*/
 
 function requestHumidity(){
 	
@@ -16,7 +25,6 @@ function requestHumidity(){
 
 function requestGetSearch(){
 		document.getElementById("bottleInventory").innerHTML = "";
-		var display = document.getElementById("bottleInventory");
 		var p = document.createElement('p');
 		p.innerHTML = " Bouteille(s) trouvée(s) : <br>";
 		var tabIdTypeDeVin;
