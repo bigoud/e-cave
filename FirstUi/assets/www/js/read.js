@@ -58,7 +58,7 @@ function getUrlVars(){
 	vars[hash[0]] = hash[1];
     }
     return vars;
-}
+};
 
 function setFields(){
     alert(location.href);
@@ -69,4 +69,18 @@ function setFields(){
     var domaine = getUrlVars()["domaine"];
     $("input[name='domaine']").val(domaine);
 
-}
+};
+
+function preFillDataBase(){
+    href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+    $.get(href, function(Inventory) {
+	InventoryTab = jQuery.makeArray(Inventory);
+	var p = document.createElement('p');
+	for (i =0 ; i<InventoryTab.length;i++){
+	    p.innerHTML += "<div id=bottle"+i+">Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+"</div>"; 
+	}
+	document.getElementById("listeBottle").innerHTML = p.innerHTML;
+    },
+	  "json")
+	.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
+};
