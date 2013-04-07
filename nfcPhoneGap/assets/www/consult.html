@@ -4,7 +4,6 @@
     <title>Consult</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta charset='utf-8'>
-    <script type="text/javascript" charset="utf-8" src="js/consult.js"></script>
   </head>
   
   <body>
@@ -18,31 +17,37 @@
 	<a data-role="button" target="_blank" data-inline="true" data-transition="slide"
 	   data-theme="a" href="#page1"> H2O </a>
 	<h4> Looking for a bottle ? </h4>
+	
 	<div data-role="fieldcontain">
-	  <fieldset data-role="controlgroup" data-mini="true">
-	    <label for="searchinput2"> </label>
-	    <input name="" id="searchinput2" placeholder="" value="" type="search">
+          <fieldset data-role="controlgroup">
+            <label for="annee">Wine type:</label>
+            <input type="text" data-mini="true" name="typeDeVin" id="typeDeVin" value="">
 	  </fieldset>
 	</div>
-	<ul data-role="listview" data-divider-theme="a" data-inset="true">
-	  <li data-theme="c">
-	    <a href="#page1" data-transition="slide"> Bottle1 </a>
-	  </li>
-	</ul>
-	<ul data-role="listview" data-divider-theme="a" data-inset="true">
-	  <li data-theme="c">
-	    <a href="#page1" data-transition="slide"> Bottle2 </a>
-	  </li>
-	</ul>
-	<ul data-role="listview" data-divider-theme="a" data-inset="true">
-	  <li data-theme="c">
-	    <a href="#page1" data-transition="slide"> Bottle3 </a>
-	  </li>
-	</ul>
+	<div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label for="annee">Year:</label>
+            <input type="text" data-mini="true" name="annee" id="annee" value="">
+	  </fieldset>
+	</div>
+	<div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label for="domaine">Domain:</label>
+            <input type="text" data-mini="true" name="domaine" id="domaine" value="">
+	  </fieldset>
+	</div>
+	
+	
+	<a data-role="button" data-inline="true" href="javascript: requestGetSearch()">
+          Rechercher
+        </a>
+	
+		<div data-role="content" id="bottleInventory">
+     </div>
       </div>
    <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-	request();
+	fillPage();
 	});
       </script>
     </div>

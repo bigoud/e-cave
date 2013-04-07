@@ -16,7 +16,8 @@ function writeTag(nfcEvent) {
 	$.ajax( { url: "https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK",
           data: JSON.stringify( {"typeDeVin": typeDeVin ,"annee": annee ,"domaine": domaine } ),
           type: "POST",
-          contentType: "application/json" } );
+          contentType: "application/json" } )
+          .fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
 	var ndefRecord = ndef.textRecord(textVin);
 	var ndefMessage = ndef.encodeMessage([ndefRecord]);
 	nfc.write([ndefRecord], function() {
