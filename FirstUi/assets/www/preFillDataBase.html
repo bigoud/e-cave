@@ -11,13 +11,18 @@
       <div data-theme="a" data-role="header">
 	<h3>Select a bottle</h3>
       </div>
-      <div id="listeBottle">
+      <div data-role="content">
+	<ul id="listeBottle" data-role="listview" data-divider-theme="a" data-inset="true">
+	  <li data-role="list-divider" role="heading">
+	    <h2>From which bottle ?</h2>
+	  </li>
+	</ul>
       </div>
+      <script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+	preFillDataBase();
+	});
+      </script>
     </div>
-    <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {
-      preFillDataBase();
-      });
-    </script>
   </body>
 </html>
