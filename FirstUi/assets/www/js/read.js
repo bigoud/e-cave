@@ -3,7 +3,7 @@ function read() {
 };
 
 function clearScreen() {
-	document.getElementById("tagContents").innerHTML = "";
+	//document.getElementById("tagContents").innerHTML = "";
 };
 
 function template(record) {
@@ -21,33 +21,18 @@ function displayBottle(bottle){
 };
 
 function parseTag(nfcEvent) {
-	clearScreen();
+	//clearScreen();
 	var tag = nfcEvent.tag;
 	var records = tag.ndefMessage;
-	var display = document.getElementById("header");
-    display.innerHTML = "<h3><center>This is your bottle</center></h3>";
+	var head = document.getElementById("header");
+    head.innerHTML = "<h3><center>This is your bottle</center></h3>"; //On change le header
 	// Display Record Info
-	//var p = document.createElement('p');
 	var text = nfc.bytesToString(records[0].payload);
 	//suppression des 3 premiers caractères (caractèreInconnu+e+n)
 	text = text.substring(3,text.length);
 	var vin = jQuery.parseJSON(text);
-    var data = document.createElement('data');
-    data.innerHTML = "Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine;
-    //p.innerHTML = "<div data-theme=\"a\" data-role=\"header\"><h3>This is your bottle</h3></div>";
-
-
-    display = document.getElementById("identification");
-    display.appendChild(data);
-//    var boutons = document.createElement('bouttons');
-var button = document.createElement('button').
-button.onclick = function(){
- alert('I was clicked');
-};
-  //  button.innerHTML = button.innerHTML + "choux-fleurs";
-/*	button.innerHTML = "<div data-role='content' id='writeRemove'><a data-role='button' data-inline='true' id='writeTag' href='add.html'>to write a new tag</a><a data-role='button' data-inline='true' id='removeBottle' href='add.html'>to remove the bottle</a></div>";
-*/
-    display.appendChild(button);
+    $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee : " + vin.annee + "<br> domaine : " + vin.domaine);
+    $('div.readWrite').html("<form action='add.html?typeDeVin="+vin.typeDeVin+"&annee="+vin.annee+"' method='get'><input type='submit' value='write a tag'></form>");
 
     navigator.notification.vibrate(100);
 };
@@ -63,3 +48,25 @@ var readyRead = function() {
 		console.log("Fail.");
 	});
 };
+
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i<hashes.length; i++){
+	hash = hashes[i].split('=');
+	vars.push(hash[0]);
+	vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function setFields(){
+    alert(location.href);
+    var type = getUrlVars()["typeDeVin"];
+    $("input[name='typeDeVin']").val(type);
+    var annee = getUrlVars()["annee"];
+    $("input[name='annee']").val(annee);
+    var domaine = getUrlVars()["domaine"];
+    $("input[name='domaine']").val(domaine);
+
+}
