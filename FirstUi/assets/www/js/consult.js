@@ -7,20 +7,23 @@ function fillPage(){
 }
 
 function requestTemp(){
-	/*alert();
 	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/tempDatabase?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	$.get(href, function(Temp) {
 			TempTab = jQuery.makeArray(Temp);
-			 document.getElementById("temp").innerHTML = TempTab[TempTab.length-1].temp; 
-			 alert();
-			 alert(TempTab[TempTab.length-1].temp);
+			 document.getElementById("temp").innerHTML = "T° :"+ TempTab[TempTab.length-1].temp; 
 		},
 		"json")
 		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
-*/
 }
 
 function requestHumidity(){
+		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/humiditydatabase?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+		$.get(href, function(Humidity) {
+			HumidityTab = jQuery.makeArray(Humidity);
+			 document.getElementById("humidite").innerHTML = "H20 :" +HumidityTab[HumidityTab.length-1].humidity; 
+		},
+		"json")
+		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
 	
 }
 
