@@ -10,7 +10,6 @@ function requestTemp(){
 }
 
 function requestHumidity(){
-	
 }
 
 function requestGetSearch(){
@@ -19,22 +18,23 @@ function requestGetSearch(){
 			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() == "" && $("#annee").val()!= "" &&  $("#domaine").val() == "" ){
-			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":'+$("#annee").val()+'}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"'+$("#annee").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() == "" &&  $("#annee").val()== "" &&  $("#domaine").val() != "" ){
 			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() != "" &&  $("#annee").val()!= "" &&  $("#domaine").val() == "" ){
-			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\"}q={"annee":'+$("#annee").val()+'}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\","annee":\"'+$("#annee").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() != "" &&  $("#annee").val()== "" && $("#domaine").val() != "" ){
-			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\"}q={"domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\","domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() == "" &&  $("#annee").val()!= "" && $("#domaine").val() != "" ){
-			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":'+$("#annee").val()+'}q={"domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"'+$("#annee").val()+'\","domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		if ($("#typeDeVin").val() != "" &&  $("#annee").val()!= "" && $("#domaine").val() != "" ){
-			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":'+$("#annee").val()+'}q={"typeDeVin":\"'+$("#typeDeVin").val()+'\"}q={"domaine":\"'+$("#domaine").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
+			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"'+$("#annee").val()+'\","typeDeVin":\"'+$("#typeDeVin").val()+'\","domaine":\"'+$("#domaine").val()+
+			'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		}
 		$.get(href, function(Inventory) {
 			InventoryTab = jQuery.makeArray(Inventory);
