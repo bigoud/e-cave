@@ -6,12 +6,17 @@ function write() {
 function yourCallbackFunction(){
 	nfc.removeNdefListener(writeTag,console.log("back"),false);
 	document.removeEventListener("backbutton",yourCallbackFunction,false);
-	$.mobile.changePage("index.html");
+	$.mobile.changePage("mainPage.html");
 }
 
 function writeTag(nfcEvent) {
 	var typeDeVin = $("#typeDeVin").val(), annee= $("#annee").val(), domaine = $("#domaine").val();
 	var textVin = JSON.stringify ({"typeDeVin": typeDeVin ,"annee":annee,"domaine":domaine});
+	//Enregistrement de la bouteille dans la base de donnée
+	$.ajax( { url: "https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK",
+          data: JSON.stringify( {"typeDeVin": typeDeVin ,"annee": annee ,"domaine": domaine } ),
+          type: "POST",
+          contentType: "application/json" } );
 	var ndefRecord = ndef.textRecord(textVin);
 	var ndefMessage = ndef.encodeMessage([ndefRecord]);
 	nfc.write([ndefRecord], function() {
