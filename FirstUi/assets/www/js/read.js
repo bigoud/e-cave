@@ -37,15 +37,19 @@ function parseTag(nfcEvent) {
 	//suppression des 3 premiers caractères (caractèreInconnu+e+n)
 	text = text.substring(3, text.length);
 	vin = jQuery.parseJSON(text);
-	$('div.tagContents').html("Type de vin : " + vin.typeDeVin + "<br> annee : " + vin.annee + "<br> domaine : " + vin.domaine);
-	vinBD = ExistTag();
+	$('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
+				"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
+				"<br> Nombre de bouteille(s) : " + vin.stocked +"<br><br>" );
+	ExistTag();
+	//alert(vinBD.length);
 	//Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
-	if (vinBD.length > 0) {
-		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
-		 "<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form>");
-	//sinon non... ^^
-	} else {
+	if (vinBD.length == 0 || vinBD[0].stocked <=0 ) {
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
+	//sinon non... ^^
+	} if (vinBD[0].stocked > 0){
+		//alert(vinBD[0].stocked);
+		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
+		"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form>");
 	}
 	navigator.notification.vibrate(100);
 };
@@ -82,8 +86,7 @@ function deleteTag() {
 
 function ExistTag() {
 	var InventoryTab;
-	alert(vin.typeDeVin + " " + vin.annee + " " + vin.domaine);
-	if (vin.typeDeVin != "" && vin.annee == "" && vin.domaine == "") {
+	/*if (vin.typeDeVin != "" && vin.annee == "" && vin.domaine == "") {
 		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"' + vin.typeDeVin + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	}
 	if (vin.typeDeVin == "" && vin.annee != "" && vin.domaine == "") {
@@ -103,13 +106,13 @@ function ExistTag() {
 	}
 	if (vin.typeDeVin != "" && vin.annee != "" && vin.domaine != "") {
 		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
+	}*/
+	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	$.get(href, function(Inventory) {
-		InventoryTab = jQuery.makeArray(Inventory);
+		vinBD= jQuery.makeArray(Inventory);
 	}, "json").fail(function() {
 		alert(" Attention Vous n'êtes pas connecté à Internet ");
 	});
-	return InventoryTab;
 }
 
 var readyRead = function() {
