@@ -28,6 +28,9 @@ function requestHumidity(){
 }
 
 function requestGetSearch(){
+		if ( $("#typeDeVin").val() == ""){
+			alert();
+		}
 		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 		if ($("#typeDeVin").val() != "" &&  $("#annee").val()== "" &&  $("#domaine").val() == "" ){
 			href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"'+$("#typeDeVin").val()+'\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
@@ -58,7 +61,9 @@ function requestGetSearch(){
 			var p = document.createElement('p');
 			p.innerHTML = " Bouteille trouvée : <br>";
 			for (i =0 ; i<InventoryTab.length;i++){
-				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+"<br><br>"; 
+				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+
+				"<br> date d'entrée de la(les) bouteilles : " + InventoryTab[i].dateInput+"<br> date de sortie : " + InventoryTab[i].dateOutput+
+				"<br> Nombre de bouteille(s) : " + InventoryTab[i].stocked +"<br><br>"; 
 			}
 			display.appendChild(p);
 		},
@@ -76,7 +81,9 @@ function requestGet() {
 			var display = document.getElementById("bottleInventory");
 			var p = document.createElement('p');
 			for (i =0 ; i<InventoryTab.length;i++){
-				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+"<br><br>"; 
+				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+
+				"<br> date d'entrée de la(les) bouteilles : " + InventoryTab[i].dateInput+"<br> date de sortie : " + InventoryTab[i].dateOutput+
+				"<br> Nombre de bouteille(s) : " + InventoryTab[i].stocked +"<br><br>"; 
 			}
 			display.appendChild(p);	
 		},
