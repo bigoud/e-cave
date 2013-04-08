@@ -40,14 +40,14 @@ function parseTag(nfcEvent) {
 	$('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
 				"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
 				"<br> Nombre de bouteille(s) : " + vin.stocked +"<br><br>" );
-	ExistTag();
-	//alert(vinBD.length);
+	vinBd = ExistTag();
+	alert(vinBD.length);
 	//Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
 	if (vinBD.length == 0 || vinBD[0].stocked <=0 ) {
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
 	//sinon non... ^^
 	} if (vinBD[0].stocked > 0){
-		//alert(vinBD[0].stocked);
+		alert(vinBD[0].stocked);
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
 		"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form>");
 	}
@@ -55,33 +55,28 @@ function parseTag(nfcEvent) {
 };
 
 function deleteTag() {
-	if (vinBD.length > 1){alert("Erreur dans la base de donnée")};
-	stocked = vinBD[0].stocked; 
+	alert();
+	if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
 	// S'il existe plus d'une bouteille on décrémente le nombre de bouteilles stockées
-	if (vinBD[0].recorded > 1) {
+	if (vinBD[0].stocked > 0) {
+		var stocked = vinBD[0].stocked-1; 
+		alert("try to delete a wine "+stocked);
 		$.ajax({
-			url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
+			url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id.$oid + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
 			data : JSON.stringify({
-				"$set" : {
+					"typeDeVin" : vinBD[0].typeDeVin,
+					"annee" : vinBD[0].annee,
+					"domaine" : vinBD[0].domaine,
+					"dateInput" : vinBD[0].dateInput,
+					"dateOutput" : vinBD[0].dateOutput,
 					"stocked" : stocked
-				}
+				
 			}),
 			type : "PUT",
 			contentType : "application/json"
 		});
-		//Sinon on la supprime de la base de donnée
-	} else {
-		$.ajax({
-			url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id + '?apiKey=myAPIKey',
-			type : "DELETE",
-			async : true,
-			timeout : 300000,
-			success : function(data) {
-			},
-			error : function(xhr, status, err) {
-			}
-		});
-	}
+	} 
+	alert("end");
 }
 
 function ExistTag() {
@@ -113,6 +108,7 @@ function ExistTag() {
 	}, "json").fail(function() {
 		alert(" Attention Vous n'êtes pas connecté à Internet ");
 	});
+	return vinBD;
 }
 
 var readyRead = function() {
