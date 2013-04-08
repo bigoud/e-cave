@@ -40,13 +40,12 @@ function parseTag(nfcEvent) {
 	$('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
 				"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
 				"<br> Nombre de bouteille(s) : " + vin.stocked +"<br><br>" );
-	vinBd = ExistTag();
+	vinBd = existTag();
 	//Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
 	if (vinBD.length == 0 || vinBD[0].stocked <=0 ) {
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
 	//sinon non... ^^
 	} if (vinBD[0].stocked > 0){
-		alert(vinBD[0].stocked);
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
 		"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form>");
 	}
@@ -56,9 +55,7 @@ function parseTag(nfcEvent) {
 function deleteTag() {
 	if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
 	// S'il existe plus d'une bouteille on décrémente le nombre de bouteilles stockées
-	if (vinBD[0].stocked > 0) {
 		var stocked = vinBD[0].stocked-1; 
-		alert("try to delete a wine "+stocked);
 		$.ajax({
 			url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id.$oid + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
 			data : JSON.stringify({
@@ -73,11 +70,9 @@ function deleteTag() {
 			type : "PUT",
 			contentType : "application/json"
 		});
-	} 
-	alert("end");
 }
 
-function ExistTag() {
+function existTag() {
 	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	$.get(href, function(Inventory) {
 		vinBD= jQuery.makeArray(Inventory);
