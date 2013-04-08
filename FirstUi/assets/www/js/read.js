@@ -41,7 +41,6 @@ function parseTag(nfcEvent) {
 				"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
 				"<br> Nombre de bouteille(s) : " + vin.stocked +"<br><br>" );
 	vinBd = ExistTag();
-	alert(vinBD.length);
 	//Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
 	if (vinBD.length == 0 || vinBD[0].stocked <=0 ) {
 		$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
@@ -55,7 +54,6 @@ function parseTag(nfcEvent) {
 };
 
 function deleteTag() {
-	alert();
 	if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
 	// S'il existe plus d'une bouteille on décrémente le nombre de bouteilles stockées
 	if (vinBD[0].stocked > 0) {
@@ -80,28 +78,6 @@ function deleteTag() {
 }
 
 function ExistTag() {
-	var InventoryTab;
-	/*if (vin.typeDeVin != "" && vin.annee == "" && vin.domaine == "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"' + vin.typeDeVin + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin == "" && vin.annee != "" && vin.domaine == "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin == "" && vin.annee == "" && vin.domaine != "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin != "" && vin.annee != "" && vin.domaine == "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"' + vin.typeDeVin + '\","annee":\"' + vin.annee + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin != "" && vin.annee == "" && vin.domaine != "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin == "" && vin.annee != "" && vin.domaine != "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}
-	if (vin.typeDeVin != "" && vin.annee != "" && vin.domaine != "") {
-		href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
-	}*/
 	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	$.get(href, function(Inventory) {
 		vinBD= jQuery.makeArray(Inventory);
@@ -116,8 +92,6 @@ var readyRead = function() {
 		navigator.notification.alert(reason, function() {
 		}, "There was a problem");
 	}
-
-
 	nfc.addNdefListener(parseTag, function() {
 		console.log("Success.");
 	}, function() {
