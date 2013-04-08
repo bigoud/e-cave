@@ -85,9 +85,11 @@ function deleteTag() {
 	}),
 	type : "PUT",
 	contentType : "application/json"
-    });
-    alert("The bottle(s) has been deleted with success");
-    $.mobile.changePage("mainPage.html");
+    })
+    .done(function() { 
+    	alert("The bottle(s) has been deleted with success");
+    	$.mobile.changePage("mainPage.html");});
+    
 }
 
 function existTag() {
