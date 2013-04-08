@@ -13,7 +13,7 @@ var InventoryTab2;
 
 function writeTag(nfcEvent) {
     var typeDeVin = $("#typeDeVin").val(), annee= $("#annee").val(), domaine = $("#domaine").val(), stocked = $("#stocked").val(), dateInput = new Date();
-//TODO stocked doit etre obligatoire
+
 //On va recuperer la bouteille de la base de donnee si elle existe
     href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + annee + '\","typeDeVin":\"' + typeDeVin + '\","domaine":\"' + domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
     $.get(href, function(Inventory) {
@@ -37,8 +37,6 @@ function writeTag(nfcEvent) {
 	var textVin = JSON.stringify ({"typeDeVin": typeDeVin ,"annee":annee,"domaine":domaine,"dateInput": dateInput, "dateOutput": "", "stocked": stocked});
 	
 	var stockedDB = parseInt(InventoryTab2[0].stocked) + parseInt(stocked);
-//TODO mettre a jour stocked ds la base de donnée : data: JSON.stringify( { "$set" : { "x" : 3 } } )
-//TODO $.ajax avec url : href, textVin, type: "PUT"
 	$.ajax({
 	    url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + InventoryTab2[0]._id.$oid + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
 	    data : JSON.stringify({
@@ -68,27 +66,7 @@ function writeTag(nfcEvent) {
 	}, "There was a problem");
     });
 }
-/*
-    var textVin = JSON.stringify ({"typeDeVin": typeDeVin ,"annee":annee,"domaine":domaine,"dateInput": mettre une date, "dateOutput": rien, "stocked": stocked});
 
-
-	//Enregistrement de la bouteille dans la base de donnée
-	$.ajax( { url: "https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK",
-		  textVin,
-          type: "POST",
-          contentType: "application/json" } )
-          .fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
-	var ndefRecord = ndef.textRecord(textVin);
-	var ndefMessage = ndef.encodeMessage([ndefRecord]);
-	nfc.write([ndefRecord], function() {
-		navigator.notification.vibrate(100);
-	}, function(reason) {
-		navigator.notification.alert(reason, function() {
-		}, "There was a problem");
-	});
-
-}
-*/
 function readyWrite() {
 
 	function win() {
