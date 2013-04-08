@@ -37,17 +37,29 @@ function parseTag(nfcEvent) {
     //suppression des 3 premiers caractères (caractèreInconnu+e+n)
     text = text.substring(3, text.length);
     vin = jQuery.parseJSON(text);
+    existTag();
+   }; 
+    
+    
+function printInfo(){
+   	//si la bouteille n'existe pas dans la bd ou si le stocke de bouteille est nulle
+    if (vinBD.length == 0 || vinBD[0].stocked == 0 ) {
     $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
 			      "<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
-			      "<br> Nombre de bouteille(s) : " + vin.stocked +"<br><br>" );
-    existTag();
-   	//si la bouteille n'existe pas dans la bd ou si le stocke de bouteille est nulle
-    if (vinBD.length == 0 || vinBD[0].stocked ==0 ) {
+			      "<br> Nombre de bouteille(s) : " + 0 +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
 	 //Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
     } if (vinBD[0].stocked > 0){
+    $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
+			"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
+			"<br> Nombre de bouteille(s) : " + vinBD[0].stocked +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
-				"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form>");
+				"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form> <div data-role=\"fieldcontain\">"+
+          		"<fieldset data-role=\"controlgroup\">"+
+            	"<label for=\"quantity\">Quantity of Bottle to delete:</label>"+
+            	"<input type=\"number\" data-mini=\"true\" name=\"stocked\" id=\"stocked\" value=\"\">"+
+	  			"</fieldset>"+
+				"</div>");
     }
     navigator.notification.vibrate(100);
 };
@@ -55,7 +67,12 @@ function parseTag(nfcEvent) {
 function deleteTag() {
     if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
     // S'il existe plus d'une bouteille on décrémente le nombre de bouteilles stockées
-    var stocked = vinBD[0].stocked-1; 
+    if (vinBD[0].stocked < $("#stocked").val()){
+    	alert("Impossible de supprimer autant de bouteilles");
+    	printInfo();
+    	break;
+    }
+    var stocked = vinBD[0].stocked-$("#stocked").val(); 
     $.ajax({
 	url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id.$oid + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
 	data : JSON.stringify({
@@ -68,16 +85,20 @@ function deleteTag() {
 	}),
 	type : "PUT",
 	contentType : "application/json"
-    });
+    })
+    .done(function() { 
+    	alert("The bottle(s) has been deleted with success");
+    	$.mobile.changePage("mainPage.html");});
+    
 }
 
 function existTag() {
     href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + vin.annee + '\","typeDeVin":\"' + vin.typeDeVin + '\","domaine":\"' + vin.domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
     $.get(href, function(Inventory) {
 	vinBD= jQuery.makeArray(Inventory);
-    }, "json").fail(function() {
-	alert(" Attention Vous n'êtes pas connecté à Internet ");
-    });
+    }, "json")
+    .fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+	.done(function() { printInfo();});
 }
 
 var readyRead = function() {
