@@ -114,13 +114,6 @@ function setFields(){
     $("input[name='domaine']").val(domaine);
 };
 
-/*
- <li data-theme="c">
- <a href="add.html" data-transition="slide">
- Add a bottle
- </a>
- </li>
- */
 
 function preFillDataBase() {
 	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
@@ -130,14 +123,6 @@ function preFillDataBase() {
 		var type = "";
 		var annee = "";
 		var domaine = "";
-		/*for (i =0 ; i<InventoryTab.length;i++){
-		 listeBottle += "<div id=bottle"+i+">";
-		 type = "<div id=type"+i+">Type de vin : " +  InventoryTab[i].typeDeVin + "</div>";
-		 annee = "<div id=annee"+i+">annee : " +  InventoryTab[i].annee + "</div>";
-		 domaine = "<div id=domaine"+i+">domaine : " +  InventoryTab[i].domaine + "</div>";
-		 listeBottle += type+annee+domaine+"</div>";
-		 }
-		 document.getElementById("listeBottle").innerHTML = listeBottle;*/
 		for ( i = 0; i < InventoryTab.length; i++) {
 			var bottle = "<li data-theme='c'><a href='add.html?typeDeVin=" + InventoryTab[i].typeDeVin + "&annee=" + InventoryTab[i].annee + "&domaine=" + InventoryTab[i].domaine + "' data-transition='slide'>Type de vin : " + InventoryTab[i].typeDeVin + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine + "<br><br></a></li>";
 			$('#listeBottle').append(bottle);
