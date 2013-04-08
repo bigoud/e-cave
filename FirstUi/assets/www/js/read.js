@@ -70,7 +70,7 @@ function deleteTag() {
     if (vinBD[0].stocked < $("#stocked").val()){
     	alert("Impossible de supprimer autant de bouteilles");
     	printInfo();
-    	break;
+    	return;
     }
     var stocked = vinBD[0].stocked-$("#stocked").val(); 
     $.ajax({
