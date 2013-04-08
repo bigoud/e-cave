@@ -111,6 +111,7 @@ var readyRead = function() {
     function failure(reason) {
 	navigator.notification.alert(reason, function() {}, "There was a problem");
 	}
+	nfc.removeNdefListener(writeTag,console.log("kill listener writeTag"),false);
     nfc.addNdefListener(parseTag, function() {
 	console.log("Success.");
     }, function() {
