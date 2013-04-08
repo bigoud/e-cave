@@ -66,13 +66,13 @@ function writeTag(nfcEvent) {
 	var stockedDB = parseInt(InventoryTab2[0].stocked) + parseInt(stocked);
 //TODO mettre a jour stocked ds la base de donnée : data: JSON.stringify( { "$set" : { "x" : 3 } } )
 //TODO $.ajax avec url : href, textVin, type: "PUT"
-
+/*
 	$.ajax( { url: href,
 		  data: JSON.stringify ({"$set" : {"stocked": stockedDB}});,
 		  type: "PUT",
 		  contentType: "application/json" } )
             .fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
-
+*/
 	break;
     default :
 	alert('should never happenned write.js:writeTag() InventoryTag.length != {0,1}');
