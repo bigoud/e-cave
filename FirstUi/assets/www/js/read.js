@@ -97,7 +97,7 @@ function existTag() {
     $.get(href, function(Inventory) {
 	vinBD= jQuery.makeArray(Inventory);
     }, "json")
-    .fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+	.fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
 	.done(function() { printInfo();});
 }
 

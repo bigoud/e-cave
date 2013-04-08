@@ -19,9 +19,11 @@ function writeTag(nfcEvent) {
 	href = 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?q={"annee":\"' + annee + '\","typeDeVin":\"' + typeDeVin + '\","domaine":\"' + domaine + '\"}&apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK';
 	$.get(href, function(Inventory) {
 	    InventoryTab2= jQuery.makeArray(Inventory);
-	}, "json").fail(function() {
-	    alert(" Attention Vous n'êtes pas connecté à Internet ");
-	});
+	}, "json")
+	    .fail(function() {
+		alert(" Attention Vous n'êtes pas connecté à Internet ");
+	    })
+	    .done(function() { printInfo();});
 	
 	switch(InventoryTab2.length){//case 0 : la bouteille n'existe pas, case 1 : elle existe et c'est InventoryTab[0]
 	case 0 :
@@ -31,7 +33,8 @@ function writeTag(nfcEvent) {
 		      data: textVin,
 		      type: "POST",
 		      contentType: "application/json" } )
-		.fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
+		.fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");})
+		.done(function() { printInfo();});
 	    
 	    break;
 	case 1 :
@@ -49,8 +52,9 @@ function writeTag(nfcEvent) {
 		    "stocked" : stockedDB
 		}),
 		type : "PUT",
-		contentType : "application/json"
-	    });
+		contentType : "application/json"})
+		.fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+		.done(function() { printInfo();});
 	    
 	    break;
 	default :
