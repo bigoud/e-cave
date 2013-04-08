@@ -33,7 +33,6 @@ function parseTag(nfcEvent) {
 	var vin = jQuery.parseJSON(text);
     $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee : " + vin.annee + "<br> domaine : " + vin.domaine);
     $('div.readWrite').html("<form action='add.html?typeDeVin="+vin.typeDeVin+"&annee="+vin.annee+"&domaine="+vin.domaine+"' method='get'><input type='submit' value='write a tag'></form>");
-
     navigator.notification.vibrate(100);
 };
 
