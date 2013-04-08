@@ -61,7 +61,6 @@ function getUrlVars(){
 };
 
 function setFields(){
-    alert(location.href);
     var type = getUrlVars()["typeDeVin"];
     $("input[name='typeDeVin']").val(type);
     var annee = getUrlVars()["annee"];
