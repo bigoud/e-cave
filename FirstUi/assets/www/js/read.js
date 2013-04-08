@@ -51,7 +51,7 @@ function printInfo(){
 	 //Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
     } if (vinBD[0].stocked > 0){
     $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
-			"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
+			"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vinBD[0].dateOutput+
 			"<br> Nombre de bouteille(s) : " + vinBD[0].stocked +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
 				"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form> <div data-role=\"fieldcontain\">"+
@@ -80,16 +80,22 @@ function deleteTag() {
 	    "annee" : vinBD[0].annee,
 	    "domaine" : vinBD[0].domaine,
 	    "dateInput" : vinBD[0].dateInput,
-	    "dateOutput" : vinBD[0].dateOutput,
+	    "dateOutput" : createDate(),
 	    "stocked" : stocked
 	}),
 	type : "PUT",
 	contentType : "application/json"
     })
+    .fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
     .done(function() { 
     	alert("The bottle(s) has been deleted with success");
-    	$.mobile.changePage("mainPage.html");});
-    
+    	$.mobile.changePage("mainPage.html");});   
+}
+
+function createDate(){
+    d = new Date();
+    date = d.getDay()+"/"+d.getMonth()+"/"+d.getFullYear();
+	return date;
 }
 
 function existTag() {
