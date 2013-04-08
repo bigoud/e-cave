@@ -11,8 +11,6 @@ function yourCallbackFunction(){
 var InventoryTab2;
 function writeTag(nfcEvent) {
     var typeDeVin = $("#typeDeVin").val(), annee= $("#annee").val(), domaine = $("#domaine").val(), stocked = $("#stocked").val(), dateInput = new Date();
-//    alert(stocked);
-//    alert(dateInput);
 //TODO stocked doit etre obligatoire
 
 //On va recuperer la bouteille de la base de donnee si elle existe
@@ -53,13 +51,13 @@ function writeTag(nfcEvent) {
 	var textVin = JSON.stringify ({"typeDeVin": typeDeVin ,"annee":annee,"domaine":domaine,"dateInput": dateInput, "dateOutput": "", "stocked": stocked});
 
 //TODO $.ajax avec textVin url: "https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK", textVin,  type: "POST" 
-/*
+
 	$.ajax( { url: "https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK",
-		  textVin,
+		  data: textVin,
 		  type: "POST",
 		  contentType: "application/json" } )
             .fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
-*/	
+	
 	break;
     case 1 :
 //	alert('present ds la base');
@@ -71,7 +69,7 @@ function writeTag(nfcEvent) {
 
 /*	
 	$.ajax( { url: href,
-		  JSON.stringify ({"dateInput": dateInput, "dateOutput": "", "stocked": stockedDB});,
+		  data: JSON.stringify ({"dateInput": dateInput, "dateOutput": "", "stocked": stockedDB});,
 		  type: "PUT",
 		  contentType: "application/json" } )
             .fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");});
