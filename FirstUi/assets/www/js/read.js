@@ -137,14 +137,13 @@ function getUrlVars() {
 	return vars;
 };
 
-function setFields() {
-	alert(location.href);
-	var type = getUrlVars()["typeDeVin"];
-	$("input[name='typeDeVin']").val(type);
-	var annee = getUrlVars()["annee"];
-	$("input[name='annee']").val(annee);
-	var domaine = getUrlVars()["domaine"];
-	$("input[name='domaine']").val(domaine);
+function setFields(){
+    var type = getUrlVars()["typeDeVin"];
+    $("input[name='typeDeVin']").val(type);
+    var annee = getUrlVars()["annee"];
+    $("input[name='annee']").val(annee);
+    var domaine = getUrlVars()["domaine"];
+    $("input[name='domaine']").val(domaine);
 };
 
 /*
