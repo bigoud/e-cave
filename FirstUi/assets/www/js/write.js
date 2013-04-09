@@ -6,7 +6,7 @@ function write() {
 };
 
 function yourCallbackFunction(){
-	nfc.removeNdefListener(writeTag,console.log("back"),false);
+	nfc.removeNdefListener(verif,console.log("back"),false);
 	document.removeEventListener("backbutton",yourCallbackFunction,false);
 	$.mobile.changePage("mainPage.html");
 }
@@ -25,11 +25,11 @@ function writeTag(nfcEvent) {
 		alert(" Attention Vous n'êtes pas connecté à Internet ");
 	    })
 	    .done(function() {
-	    writeDB(InventoryTab2,dateInput);
+	    ecritBD(InventoryTab2,dateInput);
 	    });
 }
 	    
-function writeDB(InventoryTab2,dateInput){	    
+function ecritBD(InventoryTab2,dateInput){	    
 
 	switch(InventoryTab2.length){//case 0 : la bouteille n'existe pas, case 1 : elle existe et c'est InventoryTab[0]
 	case 0 :
@@ -111,7 +111,7 @@ function verif()
 	return false;
     }
     if(typeDeVin != "" || annee != "" || domaine != "" && stocked != "") {
-	writeTag(typeDeVin,annee,domaine,stocked);
+	writeTag();
 	return true;
     }
 }
