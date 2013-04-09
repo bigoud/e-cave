@@ -43,7 +43,6 @@ function parseTag(nfcEvent) {
     
 function printInfo(){
    	//si la bouteille n'existe pas dans la bd 
-   	alert(vinBD.length);
     if (vinBD.length == 0 ) {
     $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
 			      "<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
@@ -52,7 +51,7 @@ function printInfo(){
 	}
 	//si le stocke de bouteille est nulle
 	else if( vinBD[0].stocked == 0 ){
-	('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
+	$('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
 			      "<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
 			      "<br> Nombre de bouteille(s) : " + 0 +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");

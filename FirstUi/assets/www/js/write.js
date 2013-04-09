@@ -71,6 +71,8 @@ function ecritBD(InventoryTab2,dateInput){
 	var ndefMessage = ndef.encodeMessage([ndefRecord]);
 	nfc.write([ndefRecord], function() {
 	    navigator.notification.vibrate(100);
+	    alert("Success, the tag has been written");
+	    $.mobile.changePage("mainPage.html");
 	}, function(reason) {
 	    navigator.notification.alert(reason, function() {
 	    }, "There was a problem");
