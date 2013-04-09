@@ -77,6 +77,7 @@ function verifDelete()
 { 
     toDelete = $("#toDelete").val();
     toDeleteInt = parseInt(toDelete);
+    stock = parseInt(vinBD[0].stocked);
     
     if(toDelete == "")
     {
@@ -90,7 +91,14 @@ function verifDelete()
 	$("#toDelete").focus();
 	return false;
     }
-    if(toDelete != "" && toDeleteInt > 0) {
+    if(stock < toDeleteInt)
+    {
+	alert ('not enough bottle in your cave');
+	$("#toDelete").focus();
+	return false;
+    }
+
+    else{
 	deleteTag();
 	return true;
     }
@@ -113,12 +121,7 @@ function addToTheDataBase(){
 function deleteTag() {
     if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
     // S'il existe plus d'une bouteille on décrémente le nombre de bouteilles stockées
-    if (vinBD[0].stocked < $("#stocked").val()){
-    	alert("Impossible de supprimer autant de bouteilles");
-    	printInfo();
-    	return;
-    }
-    var stocked = vinBD[0].stocked-$("#stocked").val(); 
+    var stocked = vinBD[0].stocked-$("#toDelete").val(); 
     $.ajax({
 	url : 'https://api.mongolab.com/api/1/databases/heroku_app14597085/collections/winedatabases/' + vinBD[0]._id.$oid + '?apiKey=kP7a0LRQmPijRkR9AV580c33FRq4kvfK',
 	data : JSON.stringify({
@@ -191,7 +194,7 @@ function preFillDataBase() {
     $.get(href, function(Inventory) {
 	InventoryTab = jQuery.makeArray(Inventory);
 	for ( i = 0; i < InventoryTab.length; i++) {
-	    var bottle = "<li data-theme='c'><a href='add.html?typeDeVin=" + InventoryTab[i].typeDeVin + "&annee=" + InventoryTab[i].annee + "&domaine=" + InventoryTab[i].domaine + "' data-transition='slide'>Type de vin : " + InventoryTab[i].typeDeVin + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine + "<br><br></a></li>";
+	    var bottle = "<li data-theme='c'><a href='add.html?typeDeVin=" + InventoryTab[i].typeDeVin + "&annee=" + InventoryTab[i].annee + "&domaine=" + InventoryTab[i].domaine + "' data-transition='slide'>Type de vin : " + InventoryTab[i].typeDeVin + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine + "<br> stocked : " + InventoryTab[i].stocked + "<br><br></a></li>";
 	    $('#listeBottle').append(bottle);
 	}
     }, "json").fail(function() {
