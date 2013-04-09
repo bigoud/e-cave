@@ -6,7 +6,7 @@ function write() {
 };
 
 function yourCallbackFunction(){
-	nfc.removeNdefListener(writeTag,console.log("back"),false);
+	nfc.removeNdefListener(verif,console.log("back"),false);
 	document.removeEventListener("backbutton",yourCallbackFunction,false);
 	$.mobile.changePage("mainPage.html");
 }
