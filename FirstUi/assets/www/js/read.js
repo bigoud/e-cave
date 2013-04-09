@@ -44,23 +44,23 @@ function parseTag(nfcEvent) {
 function printInfo(){
    	//si la bouteille n'existe pas dans la bd 
     if (vinBD.length == 0 ) {
-    $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
-			      "<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
-			      "<br> Nombre de bouteille(s) : " + 0 +"<br><br>" );
+    $('div.tagContents').html("Wine type : " + vin.typeDeVin  + "<br>Year :" + vin.annee + "<br>Domain : " + vin.domaine+
+			      "<br>Input Date : " + vin.dateInput+"<br>Output date : " + vin.dateOutput+
+			      "<br>Stocked : " + 0 +"<br><br>" );
 	$('div.readWrite').html("<form method='get' action=\"javascript: addToTheDataBase()\"><input type='submit' value='Add the bottle to your database'></form>");
 	}
 	//si le stocke de bouteille est nulle
 	else if( vinBD[0].stocked == 0 ){
-	$('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
-			      "<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vin.dateOutput+
-			      "<br> Nombre de bouteille(s) : " + 0 +"<br><br>" );
+	$('div.tagContents').html("Wine type : " + vin.typeDeVin  + "<br>Year :" + vin.annee + "<br>Domain : " + vin.domaine+
+			      "<br>Input date : " + vin.dateInput+"<br>Output date : " + vin.dateOutput+
+			      "<br>Stocked : " + 0 +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>");
 	}
 	 //Si la bouteille existe dans la bd l'utilisateur peut alors la supprimer
     else if (vinBD[0].stocked > 0){
-    $('div.tagContents').html("Type de vin : " + vin.typeDeVin  + "<br> annee :" + vin.annee + "<br> domaine : " + vin.domaine+
-			"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vinBD[0].dateOutput+
-			"<br> Nombre de bouteille(s) : " + vinBD[0].stocked +"<br><br>" );
+    $('div.tagContents').html("Wine type : " + vin.typeDeVin  + "<br>Year : " + vin.annee + "<br>Domain : " + vin.domaine+
+			"<br>Input date : " + vin.dateInput+"<br>Output date : " + vinBD[0].dateOutput+
+			"<br>Stocked : " + vinBD[0].stocked +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
 				"<form action=\"javascript: verifDelete()\" method='get'><input type='submit' value='remove the bottle'></form> <div data-role=\"fieldcontain\">"+
           		"<fieldset data-role=\"controlgroup\">"+
@@ -135,7 +135,7 @@ function deleteTag() {
 	type : "PUT",
 	contentType : "application/json"
     })
-    .fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+    .fail(function() {alert(" Warning you don't have an Internet access ");})
     .done(function() { 
     	alert("The bottle(s) has been deleted with success");
     	$.mobile.changePage("mainPage.html");});   
@@ -152,7 +152,7 @@ function existTag() {
     $.get(href, function(Inventory) {
 	vinBD= jQuery.makeArray(Inventory);
     }, "json")
-	.fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+	.fail(function() {alert(" Warning you don't have an Internet access ");})
 	.done(function() { printInfo();});
 }
 
@@ -194,10 +194,10 @@ function preFillDataBase() {
     $.get(href, function(Inventory) {
 	InventoryTab = jQuery.makeArray(Inventory);
 	for ( i = 0; i < InventoryTab.length; i++) {
-	    var bottle = "<li data-theme='c'><a href='add.html?typeDeVin=" + InventoryTab[i].typeDeVin + "&annee=" + InventoryTab[i].annee + "&domaine=" + InventoryTab[i].domaine + "' data-transition='slide'>Type de vin : " + InventoryTab[i].typeDeVin + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine + "<br> stocked : " + InventoryTab[i].stocked + "<br><br></a></li>";
+	    var bottle = "<li data-theme='c'><a href='add.html?typeDeVin=" + InventoryTab[i].typeDeVin + "&annee=" + InventoryTab[i].annee + "&domaine=" + InventoryTab[i].domaine + "' data-transition='slide'>Wine type : " + InventoryTab[i].typeDeVin + "<br>Year :" + InventoryTab[i].annee + "<br>Domain : " + InventoryTab[i].domaine + "<br>Stocked : " + InventoryTab[i].stocked + "<br><br></a></li>";
 	    $('#listeBottle').append(bottle);
 	}
     }, "json").fail(function() {
-	alert(" Attention Vous n'êtes pas connecté à Internet ");
+	alert(" Warning you don't have an Internet access ");
     });
 };

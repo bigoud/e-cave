@@ -22,7 +22,7 @@ function writeTag(nfcEvent) {
 	    InventoryTab2= jQuery.makeArray(Inventory);
 	}, "json")
 	    .fail(function() {
-		alert(" Attention Vous n'êtes pas connecté à Internet ");
+		alert(" Warning you don't have an Internet access ");
 	    })
 	    .done(function() {
 	    ecritBD(InventoryTab2,dateInput);
@@ -39,7 +39,7 @@ function ecritBD(InventoryTab2,dateInput){
 		      data: textVin,
 		      type: "POST",
 		      contentType: "application/json" } )
-		.fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");})
+		.fail(function(){alert(" Warning you don't have an Internet access ");})
 		.done(function() {});
 	    
 	    break;
@@ -59,7 +59,7 @@ function ecritBD(InventoryTab2,dateInput){
 		}),
 		type : "PUT",
 		contentType : "application/json"})
-		.fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+		.fail(function() {alert(" Warning you don't have an Internet access ");})
 		.done(function() {});
 	    break;
 	default :
