@@ -111,7 +111,7 @@ function verifAdd()
 	$("#stocked").focus();
 	return false;
     }
-    if(stockedInt < 0)
+    if(stockedInt <= 0)
     {
 	alert ('quantity must be a positive integer');
 	$("#stocked").focus();

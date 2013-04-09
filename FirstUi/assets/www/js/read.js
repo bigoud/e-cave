@@ -54,15 +54,38 @@ function printInfo(){
 			"<br> date d'entrée de la(les) bouteilles : " + vin.dateInput+"<br> date de sortie : " + vinBD[0].dateOutput+
 			"<br> Nombre de bouteille(s) : " + vinBD[0].stocked +"<br><br>" );
 	$('div.readWrite').html("<form action='add.html?typeDeVin=" + vin.typeDeVin + "&annee=" + vin.annee + "&domaine=" + vin.domaine + "' method='get'><input type='submit' value='write a tag'></form>" +
-				"<form action=\"javascript: deleteTag()\" method='get'><input type='submit' value='remove the bottle'></form> <div data-role=\"fieldcontain\">"+
+				"<form action=\"javascript: verifDelete()\" method='get'><input type='submit' value='remove the bottle'></form> <div data-role=\"fieldcontain\">"+
           		"<fieldset data-role=\"controlgroup\">"+
             	"<label for=\"quantity\">Quantity of Bottle to delete:</label>"+
-            	"<input type=\"number\" data-mini=\"true\" name=\"stocked\" id=\"stocked\" value=\"\">"+
+            	"<input type=\"number\" data-mini=\"true\" name=\"toDelete\" id=\"toDelete\" value=\"\">"+
 	  			"</fieldset>"+
 				"</div>");
     }
     navigator.notification.vibrate(100);
 };
+
+function verifDelete() 
+{ 
+    toDelete = $("#toDelete").val();
+    toDeleteInt = parseInt(toDelete);
+
+    if(toDelete == "")
+    {
+	alert ('How many bottle you want to delete ?');
+	$("#toDelete").focus();
+	return false;
+    }
+    if(toDeleteInt <= 0)
+    {
+	alert ('quantity must be a positive integer');
+	$("#toDelete").focus();
+	return false;
+    }
+    if(toDelete != "" && toDeleteInt > 0) {
+	deleteTag();
+	return true;
+    }
+}
 
 function deleteTag() {
     if (vinBD.length > 1){alert("Erreur dans la base de donnée");}
@@ -111,7 +134,7 @@ var readyRead = function() {
     function failure(reason) {
 	navigator.notification.alert(reason, function() {}, "There was a problem");
 	}
-	nfc.removeNdefListener(verif,console.log("kill listener writeTag"),false);
+	nfc.removeNdefListener(verifAdd,console.log("kill listener writeTag"),false);
     nfc.addNdefListener(parseTag, function() {
 	console.log("Success.");
     }, function() {
