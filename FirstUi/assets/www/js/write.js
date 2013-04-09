@@ -6,7 +6,7 @@ function write() {
 };
 
 function yourCallbackFunction(){
-	nfc.removeNdefListener(verif,console.log("back"),false);
+	nfc.removeNdefListener(verifAdd,console.log("back"),false);
 	document.removeEventListener("backbutton",yourCallbackFunction,false);
 	$.mobile.changePage("mainPage.html");
 }
@@ -22,7 +22,7 @@ function writeTag(nfcEvent) {
 	    InventoryTab2= jQuery.makeArray(Inventory);
 	}, "json")
 	    .fail(function() {
-		alert(" Attention Vous n'êtes pas connecté à Internet ");
+		alert(" Warning you don't have an Internet access ");
 	    })
 	    .done(function() {
 	    ecritBD(InventoryTab2,dateInput);
@@ -39,7 +39,7 @@ function ecritBD(InventoryTab2,dateInput){
 		      data: textVin,
 		      type: "POST",
 		      contentType: "application/json" } )
-		.fail(function(){alert("Attention vous n'êtes pas connecté à Internet, la bouteille ne sera pas ajouté à votre base de donnée'");})
+		.fail(function(){alert(" Warning you don't have an Internet access ");})
 		.done(function() {});
 	    
 	    break;
@@ -59,7 +59,7 @@ function ecritBD(InventoryTab2,dateInput){
 		}),
 		type : "PUT",
 		contentType : "application/json"})
-		.fail(function() {alert(" Attention Vous n'êtes pas connecté à Internet ");})
+		.fail(function() {alert(" Warning you don't have an Internet access ");})
 		.done(function() {});
 	    break;
 	default :
@@ -89,17 +89,18 @@ function readyWrite() {
 		conole.log('Failed to register NFC Listener');
 	}
 	nfc.removeNdefListener(parseTag,console.log("kill listener parseTag"),false);	
-	nfc.addNdefListener(verif, win, fail);
+	nfc.addNdefListener(verifAdd, win, fail);
 
 };
 
 
-function verif() 
+function verifAdd() 
 { 
     typeDeVin = $("#typeDeVin").val();
     annee= $("#annee").val();
     domaine = $("#domaine").val();
     stocked = $("#stocked").val();
+    stockedInt = parseInt(stocked);
 
     if (typeDeVin == "" && annee == "" && domaine == "")
     {
@@ -109,6 +110,12 @@ function verif()
     if(stocked == "")
     {
 	alert ('How many bottle you want to add ?');
+	$("#stocked").focus();
+	return false;
+    }
+    if(stockedInt <= 0)
+    {
+	alert ('quantity must be a positive integer');
 	$("#stocked").focus();
 	return false;
     }

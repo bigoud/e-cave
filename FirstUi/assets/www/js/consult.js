@@ -13,7 +13,7 @@ function requestTemp(){
 			 document.getElementById("temp").innerHTML = "T° :"+ TempTab[TempTab.length-1].temp; 
 		},
 		"json")
-		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
+		.fail(function(){ alert (" Warning you don't have an Internet access ");});	
 }
 
 function requestHumidity(){
@@ -23,7 +23,7 @@ function requestHumidity(){
 			 document.getElementById("humidite").innerHTML = "H20 :" +HumidityTab[HumidityTab.length-1].humidity; 
 		},
 		"json")
-		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});	
+		.fail(function(){ alert (" Warning you don't have an Internet access ");});	
 	
 }
 
@@ -56,16 +56,16 @@ function requestGetSearch(){
 			document.getElementById("bottleInventory").innerHTML = "";
 			var display = document.getElementById("bottleInventory");
 			var p = document.createElement('p');
-			p.innerHTML = " Bouteille trouvée : <br>";
+			p.innerHTML = " Result(s) : <br>";
 			for (i =0 ; i<InventoryTab.length;i++){
-				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+
-				"<br> date d'entrée de la(les) bouteilles : " + InventoryTab[i].dateInput+"<br> date de sortie : " + InventoryTab[i].dateOutput+
-				"<br> Nombre de bouteille(s) : " + InventoryTab[i].stocked +"<br><br>"; 
+				p.innerHTML += "Wine type : " + InventoryTab[i].typeDeVin  + "<br>Year :" + InventoryTab[i].annee + "<br>Domain : " + InventoryTab[i].domaine+
+				"<br>Input date : " + InventoryTab[i].dateInput+"<br>Output date : " + InventoryTab[i].dateOutput+
+				"<br>Stocked : " + InventoryTab[i].stocked +"<br><br>"; 
 			}
 			display.appendChild(p);
 		},
 		"json")
-		.fail(function(){ alert (" Attention Vous n'êtes pas connecté à Internet ");});
+		.fail(function(){ alert (" Warning you don't have an Internet access ");});
 
 	
 }
@@ -78,9 +78,9 @@ function requestGet() {
 			var display = document.getElementById("bottleInventory");
 			var p = document.createElement('p');
 			for (i =0 ; i<InventoryTab.length;i++){
-				p.innerHTML += "Type de vin : " + InventoryTab[i].typeDeVin  + "<br> annee :" + InventoryTab[i].annee + "<br> domaine : " + InventoryTab[i].domaine+
-				"<br> date d'entrée de la(les) bouteilles : " + InventoryTab[i].dateInput+"<br> date de sortie : " + InventoryTab[i].dateOutput+
-				"<br> Nombre de bouteille(s) : " + InventoryTab[i].stocked +"<br><br>"; 
+				p.innerHTML += "Wine type : " + InventoryTab[i].typeDeVin  + "<br>Year :" + InventoryTab[i].annee + "<br>Domain : " + InventoryTab[i].domaine+
+				"<br>Input date : " + InventoryTab[i].dateInput+"<br>Output date : " + InventoryTab[i].dateOutput+
+				"<br>Stocked : " + InventoryTab[i].stocked +"<br><br>"; 
 			}
 			display.appendChild(p);	
 		},
