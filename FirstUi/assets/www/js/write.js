@@ -87,17 +87,18 @@ function readyWrite() {
 		conole.log('Failed to register NFC Listener');
 	}
 	nfc.removeNdefListener(parseTag,console.log("kill listener parseTag"),false);	
-	nfc.addNdefListener(verif, win, fail);
+	nfc.addNdefListener(verifAdd, win, fail);
 
 };
 
 
-function verif() 
+function verifAdd() 
 { 
     typeDeVin = $("#typeDeVin").val();
     annee= $("#annee").val();
     domaine = $("#domaine").val();
     stocked = $("#stocked").val();
+    stockedInt = parseInt(stocked);
 
     if (typeDeVin == "" && annee == "" && domaine == "")
     {
@@ -107,6 +108,12 @@ function verif()
     if(stocked == "")
     {
 	alert ('How many bottle you want to add ?');
+	$("#stocked").focus();
+	return false;
+    }
+    if(stockedInt < 0)
+    {
+	alert ('quantity must be a positive integer');
 	$("#stocked").focus();
 	return false;
     }
