@@ -117,9 +117,7 @@ function deleteTag() {
 }
 
 function createDate(){
-    d = new Date();
-    date = d.getDay()+"/"+d.getMonth()+"/"+d.getFullYear();
-	return date;
+	return $.datepicker.formatDate('yy/mm/dd', new Date());
 }
 
 function existTag() {
